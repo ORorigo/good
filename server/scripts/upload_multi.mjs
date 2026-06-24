@@ -1,0 +1,10 @@
+import fs from 'fs';
+const path = '/Users/zys93/Documents/做题/quiz-system/多选题题目_已格式化.docx';
+const buf = fs.readFileSync(path);
+const form = new FormData();
+form.set('file', new Blob([buf]), '多选题题目_已格式化.docx');
+form.set('tags', '近代史, 毛概, 思政');
+const res = await fetch('http://localhost:3001/api/questions/upload', { method: 'POST', body: form });
+const data = await res.json();
+console.log(`结果: ${data.message}`);
+console.log(`题目数量: ${data.count}`);
